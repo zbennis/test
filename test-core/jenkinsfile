@@ -1,3 +1,7 @@
+def deployReleaseVersionToAzure() {
+       echo 'Es wird gebaaaaaaaut!'
+}
+
 node('maven-jdk11') {
 
     def gitURL = "https://github.com/zbennis/test.git"
@@ -5,10 +9,6 @@ node('maven-jdk11') {
     def TEST_CORE = "test-core"
     def TEST_CORE_DEV_JOB = "test-core-dev"
     def TEST_CORE_TEST_JOB = "test-core-test"
-
-    def deployReleaseVersionToAzure() {
-       echo 'Es wird gebaaaaaaaut!'
-    }
 
     stage('checkout') {
         git url: "${gitURL}", credentialsId: 'jenkins', poll: false
