@@ -12,10 +12,14 @@ node('linux') {
 
     stage('checkout') {
         git url: "${gitURL}", credentialsId: 'jenkins', poll: false
+        echo "Checkout fertig"
     }
 
     stage('build docker image') {
+        echo "Rein in den Stage Build Docker Image"
+        echo "${env.JOB_NAME}"
         if (env.JOB_NAME.trim().endsWith(TEST_CORE_DEV_JOB)) {
+            echo "Rein in den TEST_CORE_DEV_JOB"
             sh 'pwd'
             sh "git checkout develop"
             dir("${env.WORKSPACE}/${TEST_CORE}") {
@@ -26,6 +30,7 @@ node('linux') {
             sh 'pwd'
         }
         if (env.JOB_NAME.trim().endsWith(TEST_CORE_TEST_JOB)) {
+            echo "Rein in den TEST_CORE_TEST_JOB"
             sh 'pwd'
             sh "git checkout master"
             dir("${env.WORKSPACE}/${TEST_CORE}") {
