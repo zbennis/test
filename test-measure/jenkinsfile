@@ -21,7 +21,7 @@ node('linux') {
         sh 'pwd'
         dir("${env.WORKSPACE}/${TEST_MEASURE}") {
             sh 'pwd'
-            echo "Deploy core-test release version to azure"
+            echo "Deploy measure-test release version to azure"
             deployReleaseVersionToAzure()
         }
         sh 'pwd'
