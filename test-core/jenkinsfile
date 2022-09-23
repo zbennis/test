@@ -1,0 +1,39 @@
+node('maven-jdk11') {
+
+    def gitURL = "https://github.com/zbennis/test.git"
+    
+    def TEST_CORE = "test-core"
+    def TEST_CORE_DEV_JOB = "test-core-dev"
+    def TEST_CORE_TEST_JOB = "test-core-test"
+
+    def deployReleaseVersionToAzure() {
+       echo 'Es wird gebaaaaaaaut!'
+    }
+
+    stage('checkout') {
+        git url: "${gitURL}", credentialsId: 'jenkins', poll: false
+    }
+
+    stage('build docker image') {
+        if (env.JOB_NAME.trim().endsWith(TEST_CORE_DEV_JOB)) {
+            sh 'pwd'
+            sh "git checkout develop"
+            dir("${env.WORKSPACE}/${TEST_CORE}") {
+                sh 'pwd'
+                echo "Deploy core-dev release version to azure"
+                deployReleaseVersionToAzure()
+            }
+            sh 'pwd'
+        }
+        if (env.JOB_NAME.trim().endsWith(TEST_CORE_TEST_JOB)) {
+            sh 'pwd'
+            sh "git checkout master"
+            dir("${env.WORKSPACE}/${TEST_CORE}") {
+                sh 'pwd'
+                echo "Deploy core-test release version to azure"
+                deployReleaseVersionToAzure()
+            }
+            sh 'pwd'
+        }
+    }
+}
