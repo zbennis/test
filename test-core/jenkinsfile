@@ -1,14 +1,12 @@
 def deployReleaseVersionToAzure() {
-       echo 'Es wird gebaaaaaaaut!'
+    echo 'Es wird gebaaaaaaaut!'
 }
 
 node('linux') {
 
     def gitURL = "https://github.com/zbennis/test.git"
-    
+
     def TEST_CORE = "test-core"
-    def TEST_CORE_DEV_JOB = "test-core-dev"
-    def TEST_CORE_TEST_JOB = "test-core-test"
 
     stage('checkout') {
         git url: "${gitURL}", credentialsId: 'jenkins', poll: false
@@ -18,27 +16,13 @@ node('linux') {
     stage('build docker image') {
         echo "Rein in den Stage Build Docker Image"
         echo "${env.JOB_NAME}"
-        if (env.JOB_NAME.trim().endsWith(TEST_CORE_DEV_JOB)) {
-            echo "Rein in den TEST_CORE_DEV_JOB"
+        echo "Rein in den TEST_CORE_TEST_JOB"
+        sh 'pwd'
+        dir("${env.WORKSPACE}/${TEST_CORE}") {
             sh 'pwd'
-            sh "git checkout develop"
-            dir("${env.WORKSPACE}/${TEST_CORE}") {
-                sh 'pwd'
-                echo "Deploy core-dev release version to azure"
-                deployReleaseVersionToAzure()
-            }
-            sh 'pwd'
+            echo "Deploy core-test release version to azure"
+            deployReleaseVersionToAzure()
         }
-        if (env.JOB_NAME.trim().endsWith(TEST_CORE_TEST_JOB)) {
-            echo "Rein in den TEST_CORE_TEST_JOB"
-            sh 'pwd'
-            sh "git checkout master"
-            dir("${env.WORKSPACE}/${TEST_CORE}") {
-                sh 'pwd'
-                echo "Deploy core-test release version to azure"
-                deployReleaseVersionToAzure()
-            }
-            sh 'pwd'
-        }
+        sh 'pwd'
     }
 }
