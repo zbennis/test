@@ -2,7 +2,7 @@ def deployReleaseVersionToAzure() {
        echo 'Es wird gebaaaaaaaut!'
 }
 
-node('maven-jdk11') {
+node('linux') {
 
     def gitURL = "https://github.com/zbennis/test.git"
     

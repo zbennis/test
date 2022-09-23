@@ -3,7 +3,7 @@
 }
 
 
-node('maven-jdk11') {
+node('linux') {
 
     def gitURL = "https://github.com/zbennis/test.git"
     def TEST_MEASURE = "test-measure"
