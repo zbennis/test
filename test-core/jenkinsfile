@@ -25,5 +25,6 @@ node('linux') {
             deployReleaseVersionToAzure()
         }
         sh 'pwd'
+        echo 'Ende'
     }
 }
