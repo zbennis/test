@@ -17,7 +17,7 @@ node('linux') {
         echo "Rein in den Stage Build Docker Image"
         echo "${env.JOB_NAME}"
         echo "Building branch -> ${env.BRANCH_NAME}"
-        echo "Rein in den TEST_MEASURE_JOB"
+        echo "Rein in den TEST_ABC_JOB"
         sh 'pwd'
         dir("${env.WORKSPACE}/${TEST_MEASURE}") {
             sh 'pwd'
